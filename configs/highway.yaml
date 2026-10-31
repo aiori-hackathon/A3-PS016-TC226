@@ -1,0 +1,53 @@
+# Expressway scenario: larger inter-site distance, road further from the sites
+# All distances in metres, powers in dBm, times in milliseconds.
+
+scenario: highway
+
+# --- deployment ---
+n_cells: 12            # gNBs placed along the track
+isd_m: 750             # inter-site distance
+track_offset_m: 50     # perpendicular distance of track from the gNB line
+gnb_height_m: 25
+ue_height_m: 1.5
+start_cell: 1          # UE starts at the position of this cell ...
+end_cell: 10           # ... and stops at the position of this cell (9 boundaries crossed)
+
+# --- radio ---
+fc_ghz: 3.5
+bandwidth_mhz: 100
+scs_khz: 30
+tx_power_dbm: 46       # total gNB power
+noise_figure_db: 7
+shadow_std_db: 4       # log-normal shadowing (TR 38.901 UMa LOS)
+shadow_decorr_m: 37    # shadowing de-correlation distance
+site_shadow_corr: 0.5  # correlation of shadowing between sites (TR 38.901)
+interference_load: 0.5 # average load (activity factor) of interfering cells
+meas_error_db: 1.0     # L1 measurement error (std-dev)
+
+# --- measurement / L3 filtering (TS 38.331) ---
+dt_ms: 10              # simulation time step
+meas_period_ms: 40     # L1 measurement period
+l3_filter_k: 4         # filterCoefficient k, a = 1/2^(k/4)
+
+# --- A3 event (baseline) ---
+a3_offset_db: 1.0
+hys_db: 2.0
+ttt_ms: 320
+
+# --- speed-adaptive A3 ---
+speed_ref_kmh: 60      # no scaling below this speed
+min_scale: 0.25        # TTT / Hys never scaled below 25 %
+ttt_min_ms: 40
+hys_min_db: 0.5
+
+# --- Conditional HO (TS 38.300, Rel-16) ---
+cho_prep_margin_db: -2.0   # prepare a candidate when Mn > Mp + this margin
+
+# --- HO execution and RLF (TS 38.331 / TR 36.839) ---
+prep_delay_ms: 50      # report -> HO command (X2/Xn preparation)
+ho_interruption_ms: 50 # RACH + sync to the target
+qout_db: -8            # out-of-sync SINR threshold
+qin_db: -6             # in-sync SINR threshold
+t310_ms: 1000          # RLF timer
+reestablish_ms: 500    # interruption after RLF / HO failure
+ping_pong_mts_ms: 1000 # minimum time-of-stay for ping-pong detection
