@@ -16,7 +16,7 @@ Click the badge, then choose **Runtime → Run all**. The notebook ([`demo.ipynb
 
 ## Team introduction video
 
-YouTube: https://youtu.be/YOUR_VIDEO_ID
+YouTube: [https://youtu.be/NKQylZsM5e4?si=7Wtz7kBB_ynD2jXo]
 
 ## Presentation
 
